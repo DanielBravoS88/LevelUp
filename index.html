@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level-Up Gamer — Tienda Gamer Chile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Header/Nav -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <span class="brand-logo">⬆</span>
+        <span class="brand-text">Level-Up Gamer</span>
+      </a>
+      <nav class="nav">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#blog">Blog</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#soporte">Soporte</a>
+        <a href="#cuenta" class="btn btn-accent">Ingresar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Equipa tu setup y sube de nivel</h1>
+      <p>Consolas, accesorios, PCs y más — con envío a todo Chile.</p>
+      <div class="hero-cta">
+        <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+        <a href="#registro" class="btn btn-ghost">Regístrate (DUOC -20% de por vida)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search / Filtros -->
+  <section class="filters">
+    <div class="container filters-inner">
+      <input id="search" type="search" placeholder="Buscar productos, marcas, categorías…" aria-label="Buscar" />
+      <select id="category">
+        <option value="">Todas las categorías</option>
+        <option value="Juegos de mesa">Juegos de mesa</option>
+        <option value="Accesorios">Accesorios</option>
+        <option value="Consolas">Consolas</option>
+        <option value="Computadores gamers">Computadores gamers</option>
+        <option value="Sillas gamers">Sillas gamers</option>
+        <option value="Mouse">Mouse</option>
+        <option value="Mousepad">Mousepad</option>
+        <option value="Poleras personalizadas">Poleras personalizadas</option>
+        <option value="Polerones gamers personalizados">Polerones gamers personalizados</option>
+        <option value="Servicio técnico">Servicio técnico</option>
+      </select>
+      <button class="btn btn-primary" disabled>Filtrar (próximamente)</button>
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <main id="catalogo" class="container catalog">
+    <aside class="sidebar">
+      <h2>Categorías</h2>
+      <ul id="cat-list">
+        <li><a href="#catalogo" data-cat="Juegos de mesa">Juegos de mesa</a></li>
+        <li><a href="#catalogo" data-cat="Accesorios">Accesorios</a></li>
+        <li><a href="#catalogo" data-cat="Consolas">Consolas</a></li>
+        <li><a href="#catalogo" data-cat="Computadores gamers">Computadores gamers</a></li>
+        <li><a href="#catalogo" data-cat="Sillas gamers">Sillas gamers</a></li>
+        <li><a href="#catalogo" data-cat="Mouse">Mouse</a></li>
+        <li><a href="#catalogo" data-cat="Mousepad">Mousepad</a></li>
+        <li><a href="#catalogo" data-cat="Poleras personalizadas">Poleras personalizadas</a></li>
+        <li><a href="#catalogo" data-cat="Polerones gamers personalizados">Polerones gamers personalizados</a></li>
+        <li><a href="#catalogo" data-cat="Servicio técnico">Servicio técnico</a></li>
+      </ul>
+      <div class="promo">
+        <h3>Niveles & Puntos</h3>
+        <p>Gana LevelUp Points por compras y referidos. Canjéalos por descuentos.</p>
+      </div>
+      <div class="support-card" id="soporte">
+        <h3>¿Necesitas soporte?</h3>
+        <p>Escríbenos por WhatsApp.</p>
+        <a class="btn btn-accent" href="https://wa.me/56900000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+    </aside>
+
+    <section class="grid" id="product-grid">
+      <!-- Primeros productos como muestra estática -->
+      <!-- Nota: el resto se cargará por JS en el siguiente paso desde assets/data/products.json -->
+      <!-- (Las primeras 12 tarjetas ya muestran nombre, descripción y precio CLP) -->
+      <!-- Este bloque se generó automáticamente a partir del Excel -->
+      <!-- Si no ves imágenes, recuerda copiarlas a assets/images con el nombre indicado en images_expected.csv -->
+      <!-- …(contenido de tarjetas insertado automáticamente en el archivo descargable)… -->
+    </section>
+  </main>
+
+  <!-- Blog / Comunidad -->
+  <section id="blog" class="container blog">
+    <h2>Blog & Noticias</h2>
+    <div class="blog-hint">Pronto: guías, reseñas y novedades gamer.</div>
+  </section>
+
+  <!-- Eventos -->
+  <section id="eventos" class="container eventos">
+    <h2>Mapa de eventos</h2>
+    <div class="map-placeholder">Mapa interactivo (próximamente)</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="col">
+        <h3>Level-Up Gamer</h3>
+        <p>Tienda 100% online. Envíos a todo Chile.</p>
+        <small>Descuento -20% para correos DUOC (aplica en registro).</small>
+      </div>
+      <div class="col">
+        <h4>Categorías</h4>
+        <ul id="footer-cats">
+          <li><a href="#catalogo" data-cat="Juegos de mesa">Juegos de mesa</a></li>
+          <li><a href="#catalogo" data-cat="Accesorios">Accesorios</a></li>
+          <li><a href="#catalogo" data-cat="Consolas">Consolas</a></li>
+          <li><a href="#catalogo" data-cat="Computadores gamers">Computadores gamers</a></li>
+          <li><a href="#catalogo" data-cat="Sillas gamers">Sillas gamers</a></li>
+          <li><a href="#catalogo" data-cat="Mouse">Mouse</a></li>
+          <li><a href="#catalogo" data-cat="Mousepad">Mousepad</a></li>
+          <li><a href="#catalogo" data-cat="Poleras personalizadas">Poleras personalizadas</a></li>
+          <li><a href="#catalogo" data-cat="Polerones gamers personalizados">Polerones gamers personalizados</a></li>
+          <li><a href="#catalogo" data-cat="Servicio técnico">Servicio técnico</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Comunidad</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <small>&copy; 2025 Level-Up Gamer — Todos los derechos reservados.</small>
+    </div>
+  </footer>
+</body>
+</html>
