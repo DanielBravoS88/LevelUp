@@ -1,149 +1,158 @@
 <!DOCTYPE html>
-<html lang="es-CL">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Level-Up Gamer — Tienda Gamer Chile</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>LevelUp Gamer — Tienda de videojuegos en Chile</title>
+  <meta name="description" content="LevelUp Gamer: juegos digitales y físicos, consolas y accesorios. Envíos a todo Chile."/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Header/Nav -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">
-        <span class="brand-logo">⬆</span>
-        <span class="brand-text">Level-Up Gamer</span>
-      </a>
-      <nav class="nav">
-        <a href="#catalogo">Catálogo</a>
-        <a href="#blog">Blog</a>
-        <a href="#eventos">Eventos</a>
-        <a href="#soporte">Soporte</a>
-        <a href="#cuenta" class="btn btn-accent">Ingresar</a>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo">LU</div>
+        <h1>LevelUp Gamer</h1>
+      </div>
+      <nav aria-label="Categorías">
+        <a href="#" class="active" data-filter="Todos">Inicio</a>
+        <a href="#" data-filter="Juegos PS5">PS5</a>
+        <a href="#" data-filter="Juegos Switch">Nintendo Switch</a>
+        <a href="#" data-filter="Consolas">Consolas</a>
+        <a href="#" data-filter="Accesorios">Accesorios</a>
       </nav>
+      <div class="spacer"></div>
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Buscar juegos, consolas, accesorios…"/>
+        <button id="btnSearch">Buscar</button>
+      </div>
+      <div class="actions">
+        <button class="btn" id="btnLogin">Iniciar sesión</button>
+        <button class="btn primary cart-button" id="btnCart">Carrito <span class="badge" id="cartCount">0</span></button>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Equipa tu setup y sube de nivel</h1>
-      <p>Consolas, accesorios, PCs y más — con envío a todo Chile.</p>
-      <div class="hero-cta">
-        <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
-        <a href="#registro" class="btn btn-ghost">Regístrate (DUOC -20% de por vida)</a>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h2>Juegos PS5 Nintendo Switch  en Chile</h2>
+          <p class="text">Entrega rápida, precios exclusivos y 100% originales. ¡Acumula puntos <b>LevelUp</b> por compras y referidos!</p>
+          <div class="kpis" aria-label="Beneficios">
+            <span>⭐ 4.8/5 reseñas</span>
+            <span>🚚 Envío digital 30min–4h</span>
+            <span>🛡️ Garantía de autenticidad</span>
+            <span>🎮 Comunidad y guías</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="img/play5-2.jpg" alt="Collage de videojuegos"/>
+        </div>
       </div>
+    </section>
+
+    <div class="container">
+      <div class="toolbar">
+        <div class="filters">
+          <span class="chip active" data-chip="Todos">Todos</span>
+          <span class="chip" data-chip="Juegos PS5">PS5</span>
+          <span class="chip" data-chip="Juegos Switch">Switch</span>
+          <span class="chip" data-chip="Consolas">Consolas</span>
+          <span class="chip" data-chip="Accesorios">Accesorios</span>
+          <select id="order">
+            <option value="popular">Ordenar por popularidad</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="name-asc">Nombre A–Z</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn neon" id="btnSubscribe">Suscríbete -20% OFF</button>
+        </div>
+      </div>
+
+      <div id="grid" class="grid" aria-live="polite" aria-busy="true"></div>
     </div>
-  </section>
 
-  <!-- Search / Filtros -->
-  <section class="filters">
-    <div class="container filters-inner">
-      <input id="search" type="search" placeholder="Buscar productos, marcas, categorías…" aria-label="Buscar" />
-      <select id="category">
-        <option value="">Todas las categorías</option>
-        <option value="Juegos de mesa">Juegos de mesa</option>
-        <option value="Accesorios">Accesorios</option>
-        <option value="Consolas">Consolas</option>
-        <option value="Computadores gamers">Computadores gamers</option>
-        <option value="Sillas gamers">Sillas gamers</option>
-        <option value="Mouse">Mouse</option>
-        <option value="Mousepad">Mousepad</option>
-        <option value="Poleras personalizadas">Poleras personalizadas</option>
-        <option value="Polerones gamers personalizados">Polerones gamers personalizados</option>
-        <option value="Servicio técnico">Servicio técnico</option>
-      </select>
-      <button class="btn btn-primary" disabled>Filtrar (próximamente)</button>
-    </div>
-  </section>
+    <section class="container section">
+      <h3>Lo que dicen nuestros clientes</h3>
+      <div class="reviews" id="reviews"></div>
+    </section>
 
-  <!-- Catálogo -->
-  <main id="catalogo" class="container catalog">
-    <aside class="sidebar">
-      <h2>Categorías</h2>
-      <ul id="cat-list">
-        <li><a href="#catalogo" data-cat="Juegos de mesa">Juegos de mesa</a></li>
-        <li><a href="#catalogo" data-cat="Accesorios">Accesorios</a></li>
-        <li><a href="#catalogo" data-cat="Consolas">Consolas</a></li>
-        <li><a href="#catalogo" data-cat="Computadores gamers">Computadores gamers</a></li>
-        <li><a href="#catalogo" data-cat="Sillas gamers">Sillas gamers</a></li>
-        <li><a href="#catalogo" data-cat="Mouse">Mouse</a></li>
-        <li><a href="#catalogo" data-cat="Mousepad">Mousepad</a></li>
-        <li><a href="#catalogo" data-cat="Poleras personalizadas">Poleras personalizadas</a></li>
-        <li><a href="#catalogo" data-cat="Polerones gamers personalizados">Polerones gamers personalizados</a></li>
-        <li><a href="#catalogo" data-cat="Servicio técnico">Servicio técnico</a></li>
-      </ul>
-      <div class="promo">
-        <h3>Niveles & Puntos</h3>
-        <p>Gana LevelUp Points por compras y referidos. Canjéalos por descuentos.</p>
+    <section class="container section">
+      <h3>Noticias y guías para gamers</h3>
+      <div class="blog">
+        <article class="post"><h4>¿Cómo elegir tu primer mando pro?</h4><p class="desc">Consejos prácticos para jugar shooters y carreras con mayor precisión.</p></article>
+        <article class="post"><h4>PS5 vs. Switch: ¿qué te conviene?</h4><p class="desc">Comparamos catálogo, accesorios y ecosistema para ayudarte a decidir.</p></article>
+        <article class="post"><h4>Guía: canjea tus puntos LevelUp</h4><p class="desc">Sube de nivel y consigue descuentos al referir amigos y completar retos.</p></article>
       </div>
-      <div class="support-card" id="soporte">
-        <h3>¿Necesitas soporte?</h3>
-        <p>Escríbenos por WhatsApp.</p>
-        <a class="btn btn-accent" href="https://wa.me/56900000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
-      </div>
-    </aside>
-
-    <section class="grid" id="product-grid">
-      <!-- Primeros productos como muestra estática -->
-      <!-- Nota: el resto se cargará por JS en el siguiente paso desde assets/data/products.json -->
-      <!-- (Las primeras 12 tarjetas ya muestran nombre, descripción y precio CLP) -->
-      <!-- Este bloque se generó automáticamente a partir del Excel -->
-      <!-- Si no ves imágenes, recuerda copiarlas a assets/images con el nombre indicado en images_expected.csv -->
-      <!-- …(contenido de tarjetas insertado automáticamente en el archivo descargable)… -->
     </section>
   </main>
 
-  <!-- Blog / Comunidad -->
-  <section id="blog" class="container blog">
-    <h2>Blog & Noticias</h2>
-    <div class="blog-hint">Pronto: guías, reseñas y novedades gamer.</div>
-  </section>
+  <a class="whatsapp" href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="Soporte por WhatsApp">Soporte técnico</a>
 
-  <!-- Eventos -->
-  <section id="eventos" class="container eventos">
-    <h2>Mapa de eventos</h2>
-    <div class="map-placeholder">Mapa interactivo (próximamente)</div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="col">
-        <h3>Level-Up Gamer</h3>
-        <p>Tienda 100% online. Envíos a todo Chile.</p>
-        <small>Descuento -20% para correos DUOC (aplica en registro).</small>
-      </div>
-      <div class="col">
-        <h4>Categorías</h4>
-        <ul id="footer-cats">
-          <li><a href="#catalogo" data-cat="Juegos de mesa">Juegos de mesa</a></li>
-          <li><a href="#catalogo" data-cat="Accesorios">Accesorios</a></li>
-          <li><a href="#catalogo" data-cat="Consolas">Consolas</a></li>
-          <li><a href="#catalogo" data-cat="Computadores gamers">Computadores gamers</a></li>
-          <li><a href="#catalogo" data-cat="Sillas gamers">Sillas gamers</a></li>
-          <li><a href="#catalogo" data-cat="Mouse">Mouse</a></li>
-          <li><a href="#catalogo" data-cat="Mousepad">Mousepad</a></li>
-          <li><a href="#catalogo" data-cat="Poleras personalizadas">Poleras personalizadas</a></li>
-          <li><a href="#catalogo" data-cat="Polerones gamers personalizados">Polerones gamers personalizados</a></li>
-          <li><a href="#catalogo" data-cat="Servicio técnico">Servicio técnico</a></li>
-        </ul>
-      </div>
-      <div class="col">
-        <h4>Comunidad</h4>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">TikTok</a></li>
-          <li><a href="#">YouTube</a></li>
-        </ul>
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <header class="container">
+      <strong>Tu carrito</strong>
+    </header>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div><small>Total</small><div id="cartTotal" style="font-size:20px;font-weight:800;color:var(--accent-2)">$0</div></div>
+        <button class="btn primary" id="checkout">Pagar</button>
       </div>
     </div>
-    <div class="container footer-legal">
-      <small>&copy; 2025 Level-Up Gamer — Todos los derechos reservados.</small>
+  </aside>
+
+  <div class="cart-dock">
+    <button class="btn primary cart-button" id="dockCart">Carrito <span class="badge" id="dockCount">0</span></button>
+  </div>
+
+  <div class="modal" id="loginModal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <h3 style="margin-top:0">Crear cuenta</h3>
+      <p class="desc">Solo para mayores de 18 años. Correos @duoc.cl obtienen <b>20% de por vida</b>.</p>
+      <form id="loginForm" class="grid-2">
+        <input required placeholder="Nombre"/>
+        <input required placeholder="Apellido"/>
+        <input id="email" type="email" required placeholder="Email"/>
+        <input id="age" type="number" min="18" required placeholder="Edad (18+)"/>
+        <input placeholder="Código de referido (opcional)"/>
+        <button class="btn primary" style="grid-column:1/-1">Registrarme</button>
+      </form>
+      <div id="duocMsg" class="desc" style="margin-top:8px;color:var(--accent-2);"></div>
+      <div style="text-align:right;margin-top:10px"><button class="btn" id="closeLogin">Cerrar</button></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4 style="font-family:Orbitron;margin:0 0 6px">LevelUp Gamer</h4>
+        <p class="desc">Pedro Aguirre Cerda 5254, Huechuraba, Santiago de Chile</p>
+        <p class="desc">Origen auténtico y garantía en todos nuestros productos. Síguenos y comparte ofertas.</p>
+        <p>
+          <a href="#">Instagram</a> · <a href="#">Facebook</a> · <a href="#">X/Twitter</a>
+        </p>
+      </div>
+      <div>
+        <h4 style="font-family:Orbitron;margin:0 0 6px">Horario de envíos</h4>
+        <p class="desc">Todos los días de 12:00 a 21:00 hrs. Envío digital 30 min a 4 horas según el juego.</p>
+      </div>
+      <div>
+        <h4 style="font-family:Orbitron;margin:0 0 6px">Mapa y eventos</h4>
+        <div style="border:1px solid var(--muted);border-radius:12px;overflow:hidden">
+          <iframe title="Mapa LevelUp" src="https://www.google.com/maps?q=Pedro%20Aguirre%20Cerda%205254%20Huechuraba&output=embed" width="100%" height="180" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="padding:12px 0;border-top:1px solid var(--muted);color:var(--text-2)">
+      <small>© <span id="year"></span> LevelUp Gamer. Programa de puntos y gamificación disponible para usuarios registrados. Reseñas verificadas.</small>
     </div>
   </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
