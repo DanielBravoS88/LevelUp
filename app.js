@@ -30,7 +30,7 @@ const staticGallery = [
 // Estado
 const state = { products: [], filter:'Todos', q:'', order:'popular', cart: JSON.parse(localStorage.getItem('cart')||'[]') };
 
-// ---- Cargar productos: intenta JSON; si falla, usa staticGallery ----
+// ---- Cargar productos: intenta JSON; si falla, usa galería estática ----
 fetch('products.json').then(r=>{
   if(!r.ok) throw new Error('No JSON');
   return r.json();
