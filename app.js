@@ -99,13 +99,201 @@ function drawCart(){
   document.getElementById('cartTotal').textContent = money(total);
 }
 
-// Reseñas dummy
-const sampleReviews = [
-  {name:'Felipe Retamal', text:'Funciona perfecto. Primera compra y repetiré ✨', score:5},
-  {name:'Ronaldo Soto', text:'Confiables y rápidos. Feliz con la compra 😍', score:5},
-  {name:'Dgo', text:'Tercera vez comprando y plus todos los meses 🙌', score:5},
+// ----------- BOLETA REAL (modal mejorada) -----------
+function showReceipt() {
+  if (!state.cart.length) {
+    alert('El carrito está vacío.');
+    return;
+  }
+  const fecha = new Date();
+  const nroBoleta = Math.floor(Math.random()*900000+100000);
+
+  // Si el usuario tiene descuento DUOC
+  let descuento = 0;
+  let email = $('#email')?.value?.trim()?.toLowerCase() || '';
+  if (/@duoc\.cl$/.test(email)) {
+    descuento = 0.2;
+  }
+
+  // Calcular totales y filas
+  let totalSinDescuento = 0;
+  let totalDescuento = 0;
+  const items = state.cart.map(item => {
+    const precioUnitario = item.price;
+    const subtotal = precioUnitario * item.qty;
+    let descuentoItem = 0;
+    let precioFinal = subtotal;
+
+    // Aplica descuento DUOC si corresponde
+    if (descuento > 0) {
+      descuentoItem = Math.round(subtotal * descuento);
+      precioFinal = subtotal - descuentoItem;
+    }
+
+    totalSinDescuento += subtotal;
+    totalDescuento += descuentoItem;
+
+    return `
+      <tr>
+        <td>
+          <div style="font-weight:600">${item.name}</div>
+          <div style="font-size:12px;color:#888">${item.description || ''}</div>
+        </td>
+        <td style="text-align:center">${item.qty}</td>
+        <td style="text-align:right">${money(precioUnitario)}</td>
+        <td style="text-align:right">${money(subtotal)}</td>
+        <td style="text-align:right">${descuentoItem ? '-'+money(descuentoItem) : '<span style="color:#bbb">—</span>'}</td>
+        <td style="text-align:right;font-weight:700">${money(precioFinal)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const totalFinal = totalSinDescuento - totalDescuento;
+
+  const html = `
+    <div class="modal open" id="receiptModal" style="z-index:100;">
+      <div class="box" style="max-width:600px;background:linear-gradient(135deg,#181c2f 0%,#232a4d 100%);color:#fff;border-radius:18px;box-shadow:0 8px 32px #0004;">
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <div style="background:#fff;border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;margin-right:12px;">
+            <span style="font-family:Orbitron;font-size:2rem;color:#232a4d;font-weight:700;">LU</span>
+          </div>
+          <div>
+            <h3 style="margin:0;font-family:Orbitron;font-size:1.5rem;color:#fff;">LevelUp Gamer</h3>
+            <div style="font-size:13px;color:#b3b8d6;">Pedro Aguirre Cerda 5254, Huechuraba</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:#b3b8d6;margin-bottom:12px;text-align:center">
+          Fecha: ${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}<br>
+          N° Boleta: <b style="color:#ffd700">${nroBoleta}</b>
+        </div>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:15px;background:#232a4d;border-radius:12px;overflow:hidden;">
+          <thead>
+            <tr style="background:#232a4d;color:#ffd700">
+              <th style="text-align:left;padding:8px">Producto</th>
+              <th style="text-align:center;padding:8px">Cantidad</th>
+              <th style="text-align:right;padding:8px">Precio unitario</th>
+              <th style="text-align:right;padding:8px">Subtotal</th>
+              <th style="text-align:right;padding:8px">Descuento</th>
+              <th style="text-align:right;padding:8px">Total</th>
+            </tr>
+          </thead>
+          <tbody>${items}</tbody>
+        </table>
+        <div style="display:flex;justify-content:flex-end;gap:32px;margin-bottom:10px">
+          <div>
+            <div style="color:#b3b8d6">Total sin descuento:</div>
+            <div style="font-weight:700">${money(totalSinDescuento)}</div>
+          </div>
+          <div>
+            <div style="color:#b3b8d6">Descuento aplicado:</div>
+            <div style="font-weight:700;color:#ffd700">${descuento ? '-'+money(totalDescuento) : '$0'}</div>
+          </div>
+          <div>
+            <div style="color:#b3b8d6">Total a pagar:</div>
+            <div style="font-weight:700;font-size:18px;color:#ffd700">${money(totalFinal)}</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <button class="btn primary" id="closeReceipt" style="background:#ffd700;color:#232a4d;font-weight:700;">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', html);
+  document.getElementById('closeReceipt').onclick = () => {
+    document.getElementById('receiptModal').remove();
+    closeCart();
+    state.cart = [];
+    saveCart();
+  };
+}
+
+// ----------- RESEÑAS EDITABLES -----------
+// Cambios aquí: cada review tiene editing: false
+let reviews = [
+  {id:1, name:'Felipe Retamal', text:'Funciona perfecto. Primera compra y repetiré ✨', score:5, editing:false},
+  {id:2, name:'Ronaldo Soto', text:'Confiables y rápidos. Feliz con la compra 😍', score:5, editing:false},
+  {id:3, name:'Dgo', text:'Tercera vez comprando y plus todos los meses 🙌', score:5, editing:false},
 ];
-$('#reviews').innerHTML = sampleReviews.map(r=>`<div class="review"><strong>${r.name}</strong><div>${'⭐'.repeat(r.score)}</div><p class="desc">${r.text}</p></div>`).join('');
+
+function renderReviews() {
+  const container = document.getElementById('reviews');
+  container.innerHTML = '';
+  reviews.forEach(review => {
+    const div = document.createElement('div');
+    div.className = 'review';
+    if (review.editing) {
+      div.innerHTML = `
+        <form onsubmit="saveReview(event,${review.id})" class="review-edit-form">
+          <input value="${review.name}" id="editName${review.id}" required style="margin-bottom:6px;width:100%;"/>
+          <div class="stars" style="margin-bottom:6px;">${renderStars(review.score, review.id, true)}</div>
+          <textarea id="editText${review.id}" required style="width:100%;margin-bottom:6px;">${review.text}</textarea>
+          <button type="submit" class="btn primary">Guardar</button>
+          <button type="button" class="btn" onclick="cancelEdit(${review.id})">Cancelar</button>
+        </form>
+      `;
+    } else {
+      div.innerHTML = `
+        <strong>${review.name}</strong>
+        <div class="stars">${renderStars(review.score, review.id, false)}</div>
+        <p class="desc">${review.text}</p>
+        <div style="margin-top:8px;">
+          <button class="btn" onclick="editReview(${review.id})">Editar</button>
+          <button class="btn" onclick="deleteReview(${review.id})">Borrar</button>
+        </div>
+      `;
+    }
+    container.appendChild(div);
+  });
+}
+
+function renderStars(score, id, editable) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += `<span style="cursor:${editable?'pointer':'default'};color:${i<=score?'gold':'#888'}" ${editable?`onclick="setStars(${id},${i})"`:''}>&#9733;</span>`;
+  }
+  return html;
+}
+
+window.setStars = function(id, score) {
+  const review = reviews.find(r => r.id === id);
+  if (review && review.editing) {
+    review.score = score;
+    renderReviews();
+  }
+};
+
+window.editReview = function(id) {
+  reviews.forEach(r => r.editing = false);
+  const review = reviews.find(r => r.id === id);
+  if (review) review.editing = true;
+  renderReviews();
+};
+
+window.cancelEdit = function(id) {
+  const review = reviews.find(r => r.id === id);
+  if (review) review.editing = false;
+  renderReviews();
+};
+
+window.saveReview = function(e, id) {
+  e.preventDefault();
+  const review = reviews.find(r => r.id === id);
+  if (review) {
+    review.name = document.getElementById('editName'+id).value;
+    review.text = document.getElementById('editText'+id).value;
+    review.editing = false;
+  }
+  renderReviews();
+};
+
+window.deleteReview = function(id) {
+  reviews = reviews.filter(r => r.id !== id);
+  renderReviews();
+};
+
+// Inicializa reseñas
+renderReviews();
 
 // Interacciones
 $$('#btnCart, #dockCart').forEach(b=>b.addEventListener('click', openCart));
@@ -137,3 +325,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
 document.getElementById('btnSubscribe').addEventListener('click', ()=>{
   alert('Suscripción registrada. Revisa tu correo para el cupón de -20% en tu primera compra.');
 });
+
+// --------- BOTÓN PAGAR: mostrar boleta ---------
+document.getElementById('checkout').addEventListener('click', showReceipt);
