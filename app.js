@@ -44,6 +44,21 @@ fetch('products.json').then(r=>{
   document.getElementById('grid').setAttribute('aria-busy','false');
 });
 
+// Toast de confirmación
+function showToast(msg) {
+  let toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 400);
+    }, 1800);
+  }, 10);
+}
+
 // Render catálogo
 function render(){
   const grid = document.getElementById('grid');
@@ -70,13 +85,23 @@ const cardTpl = (p) => `
       <p class="desc">${(p.description||'').slice(0,120)}...</p>
       <div class="row">
         <button class="btn" onclick='add("${encodeURIComponent(JSON.stringify(p))}")'>Agregar</button>
-        <button class="btn primary" onclick='add("${encodeURIComponent(JSON.stringify(p))}");openCart()'>Comprar</button>
+        <button class="btn primary" onclick='add("${encodeURIComponent(JSON.stringify(p))}");openCart();showToast("¡Compraste: ${p.name}!")'>Comprar</button>
       </div>
     </div>
   </article>`;
 
 // Carrito
-function add(encoded){ const p = JSON.parse(decodeURIComponent(encoded)); const found = state.cart.find(i=>i.name===p.name); if(found){ found.qty+=1; } else { state.cart.push({...p, qty:1}); } saveCart(); }
+function add(encoded){
+  const p = JSON.parse(decodeURIComponent(encoded));
+  const found = state.cart.find(i=>i.name===p.name);
+  if(found){
+    found.qty+=1;
+  } else {
+    state.cart.push({...p, qty:1});
+  }
+  saveCart();
+  showToast(`Agregado: ${p.name}`);
+}
 function remove(name){ state.cart = state.cart.filter(i=>i.name!==name); saveCart(); }
 function changeQty(name, d){ const it = state.cart.find(i=>i.name===name); if(!it) return; it.qty = Math.max(1, it.qty + d); saveCart(); }
 function saveCart(){ localStorage.setItem('cart', JSON.stringify(state.cart)); drawCart(); updateCounts(); }
@@ -209,7 +234,6 @@ function showReceipt() {
 }
 
 // ----------- RESEÑAS EDITABLES -----------
-// Cambios aquí: cada review tiene editing: false
 let reviews = [
   {id:1, name:'Felipe Retamal', text:'Funciona perfecto. Primera compra y repetiré ✨', score:5, editing:false},
   {id:2, name:'Ronaldo Soto', text:'Confiables y rápidos. Feliz con la compra 😍', score:5, editing:false},
@@ -302,7 +326,13 @@ document.body.addEventListener('click', e=>{ if(e.target.closest('.cart-panel'))
 
 // Filtros + búsqueda
 document.getElementById('order').addEventListener('change', e=>{ state.order=e.target.value; render(); });
-document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; render(); });
+
+// Solo busca al apretar el botón
+document.getElementById('btnSearch').addEventListener('click', () => {
+  state.q = document.getElementById('q').value;
+  render();
+});
+
 $$('.chip, nav a').forEach(ch=>ch.addEventListener('click', e=>{ e.preventDefault(); $$('.chip, nav a').forEach(c=>c.classList.remove('active')); ch.classList.add('active'); state.filter = ch.dataset.chip || ch.dataset.filter || 'Todos'; render(); }));
 
 // Login modal
@@ -328,3 +358,24 @@ document.getElementById('btnSubscribe').addEventListener('click', ()=>{
 
 // --------- BOTÓN PAGAR: mostrar boleta ---------
 document.getElementById('checkout').addEventListener('click', showReceipt);
+
+// --------- HERO IMAGE AUTO-CHANGE CON FADE ---------
+const heroImages = [
+  "img/play5-2.jpg",
+  "img/nintendo1.jpg",
+  "img/Audifonos-Gamer-Inalambricos.png",
+  "img/play5-3.jpg",
+  "img/nintendo5.jpg"
+];
+let heroIndex = 0;
+window.addEventListener('DOMContentLoaded', () => {
+  const heroImg = document.getElementById('heroImg');
+  if (!heroImg) return;
+  setInterval(() => {
+    heroImg.classList.add('fade');
+    setTimeout(() => {
+      heroIndex = (heroIndex + 1) % heroImages.length;
+      heroImg.src = heroImages[heroIndex];
+      heroImg.classList.remove('fade');
+    }, 700); // Tiempo igual al transition del CSS
+  }, 2500);
