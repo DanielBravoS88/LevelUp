@@ -12,11 +12,9 @@
 </head>
 <body>
 
-  <!-- =====================================================
-  HEADER
-  ====================================================== -->
+  <!-- =======================================HEADER================================================ -->
   <header>
-    <div class="noticebar">
+    <div class="noticebar">         <!--Barra de Aviso / Barra de Busqueda-->
       <div class="container nb-inner">
         <a class="nb-link" href="#">Revisa nuestros tiempos de entrega</a>
         <div class="search search--nb" role="search">
@@ -32,7 +30,7 @@
         </nav>
       </div>
     </div>
-    <div class="container topbar">
+    <div class="container topbar">    <!--Barra principal (logo + acciones)-->
       <div class="brand">
         <div class="logo">LU</div>
         <h1>LevelUp Gamer</h1>
@@ -48,9 +46,7 @@
     </div>
   </header>
 
-  <!-- =====================================================
-  BANNER / CARRUSEL
-  ====================================================== -->
+  <!-- =====================================BANNER / CARRUSEL============================================== -->
   <section class="billboard" id="billboard" role="region" aria-label="Promociones" aria-roledescription="carrusel" tabindex="0">
     <button class="bb-nav prev" aria-label="Anterior"></button>
     <button class="bb-nav next" aria-label="Siguiente"></button>
@@ -63,10 +59,9 @@
     <img src="img/banner_ps5_fc24.jpg" alt="Banner principal" class="bb-fallback">
   </section>
 
-  <!-- =====================================================
-  CONTENIDO PRINCIPAL
-  ====================================================== -->
+  <!-- ======================================CONTENIDO PRINCIPAL============================================== -->
   <main>
+    <!-- FILA DE PROMOS DESTACADAS-->
     <section class="container promos-row">
       <a class="promo" href="#">
         <div class="promo-title">Promo 1: Figuras / Anime</div>
@@ -90,7 +85,7 @@
         </div>
       </div>
     </section>
-
+      <!-- Chips de filtro; cada chip tiene data-chip para que JS sepa qué categoría activar -->
     <div class="container">
       <div class="toolbar">
         <div class="filters">
@@ -154,10 +149,13 @@
       </div>
     </section>
   </main>
-
+<!-- PANEL LATERAL DEL CARRITO (oculto por defecto con aria-hidden) -->
   <aside class="cart-panel" id="cartPanel" aria-hidden="true">
     <header class="container"><strong>Tu carrito</strong></header>
+
+    <!-- Aquí el JS inyecta la lista de ítems del carrito -->
     <div class="cart-items" id="cartItems"></div>
+      <!-- Footer del carrito: total + botón de pago -->
     <div class="cart-footer">
       <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
         <div>
@@ -202,6 +200,7 @@
           <!-- iconos redes sociales -->
         </div>
       </div>
+        <!-- Columna horarios + contacto -->
       <div class="lp-footer__col">
         <h4 class="lp-footer__heading">Horario de atención tienda web</h4>
         <ul class="lp-footer__list">
@@ -228,6 +227,7 @@
           <li><a href="#">Acerca de Nosotros</a></li>
         </ul>
       </div>
+      <!-- Columna mi cuenta + medios de pago -->
       <div class="lp-footer__col">
         <h4 class="lp-footer__heading">Mi cuenta</h4>
         <ul class="lp-footer__links">
@@ -243,6 +243,7 @@
       © <span id="year"></span> LevelUp Gamer · Todos los derechos reservados.
     </div>
   </footer>
+  <!-- Script pequeño para actualizar el año automáticamente -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
