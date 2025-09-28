@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LevelUp Gamer — Tienda de videojuegos en Chile</title>
+  <meta name="description" content="LevelUp Gamer: juegos digitales y físicos, consolas y accesorios. Envíos a todo Chile."/>
+
+  <!-- Fuentes y hoja de estilos base del sitio -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =======================================HEADER================================================ -->
+  <header>
+    <div class="noticebar">         <!--Barra de Aviso / Barra de Busqueda-->
+      <div class="container nb-inner">
+        <a class="nb-link" href="#">Revisa nuestros tiempos de entrega</a>
+        <div class="search search--nb" role="search">
+          <input id="q" type="search" placeholder="Buscar juegos, consolas, accesorios…"/>
+          <button id="btnSearch">Buscar</button>
+        </div>
+        <nav class="nb-quick">
+          <a href="#">Nuestras tiendas</a>
+          <span aria-hidden="true">·</span>
+          <a href="#" id="btnLoginTop">Regístrate</a>
+          <span aria-hidden="true">·</span>
+          <a href="#" id="btnAccount">Mi cuenta</a>
+        </nav>
+      </div>
+    </div>
+    <div class="container topbar">    <!--Barra principal (logo + acciones)-->
+      <div class="brand">
+        <div class="logo">LU</div>
+        <h1>LevelUp Gamer</h1>
+      </div>
+      <div class="spacer"></div>
+      <div class="actions">
+        <div id="xp" class="desc" style="margin-right:10px"></div>
+        <button class="btn" id="btnLogin">Iniciar sesión</button>
+        <button class="btn primary cart-button" id="btnCart">
+          Carrito <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================BANNER / CARRUSEL============================================== -->
+  <section class="billboard" id="billboard" role="region" aria-label="Promociones" aria-roledescription="carrusel" tabindex="0">
+    <button class="bb-nav prev" aria-label="Anterior"></button>
+    <button class="bb-nav next" aria-label="Siguiente"></button>
+    <div class="bb-dots" id="bbDots" aria-hidden="true"></div>
+    <div class="bb-cta">
+      <div class="bb-cta-tag">Novedad</div>
+      <h3 class="bb-cta-title">EA SPORTS FC — ¡YA DISPONIBLE!</h3>
+      <a href="#" class="btn neon bb-cta-btn">Ver ofertas</a>
+    </div>
+    <img src="img/banner_ps5_fc24.jpg" alt="Banner principal" class="bb-fallback">
+  </section>
+
+  <!-- ======================================CONTENIDO PRINCIPAL============================================== -->
+  <main>
+    <!-- FILA DE PROMOS DESTACADAS-->
+    <section class="container promos-row">
+      <a class="promo" href="#">
+        <div class="promo-title">Promo 1: Figuras / Anime</div>
+        <div class="promo-sub">Hasta -20% esta semana</div>
+      </a>
+      <a class="promo" href="#">
+        <div class="promo-title">Promo 2: Accesorios PS5</div>
+        <div class="promo-sub">Controles, headsets, carga</div>
+      </a>
+    </section>
+
+    <section class="container headline">
+      <div class="headline-inner">
+        <h2>Juegos PS5 y Nintendo Switch en Chile</h2>
+        <p class="text">Entrega rápida, precios exclusivos y 100% originales. ¡Acumula puntos <b>LevelUp</b> por compras y referidos!</p>
+        <div class="kpis" aria-label="Beneficios">
+          <span>⭐ 4.8/5 reseñas</span>
+          <span>🚚 Envío a domicilio</span>
+          <span>🛡️ Garantía de autenticidad</span>
+          <span>🎮 Comunidad y guías</span>
+        </div>
+      </div>
+    </section>
+      <!-- Chips de filtro; cada chip tiene data-chip para que JS sepa qué categoría activar -->
+    <div class="container">
+      <div class="toolbar">
+        <div class="filters">
+          <span class="chip active" data-chip="Todos">Todos</span>
+          <span class="chip" data-chip="PS5">PS5</span>
+          <span class="chip" data-chip="Switch">Switch</span>
+          <span class="chip" data-chip="Consolas">Consolas</span>
+          <span class="chip" data-chip="Accesorios">Accesorios</span>
+          <select id="order">
+            <option value="popular">Ordenar por popularidad</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="name-asc">Nombre A–Z</option>
+          </select>
+        </div>
+        <button class="btn neon" id="btnSubscribe">Suscríbete -20% OFF</button>
+      </div>
+      <div id="grid" class="grid" aria-live="polite" aria-busy="true"></div>
+    </div>
+
+    <section class="container section">
+      <h3>Lo que dicen nuestros clientes</h3>
+      <div class="reviews" id="reviews"></div>
+    </section>
+
+    <section class="container section">
+      <h3>Noticias y guías para gamers</h3>
+      <div class="blog">
+        <article class="post">
+          <h4>¿Cómo elegir tu primer mando pro?</h4>
+          <p class="desc">Consejos prácticos para jugar shooters y carreras con mayor precisión.</p>
+        </article>
+        <article class="post">
+          <h4>PS5 vs. Switch: ¿qué te conviene?</h4>
+          <p class="desc">Comparamos catálogo, accesorios y ecosistema para ayudarte a decidir.</p>
+        </article>
+        <article class="post">
+          <h4>Guía: canjea tus puntos LevelUp</h4>
+          <p class="desc">Sube de nivel y consigue descuentos al referir amigos y completar retos.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Info: mapa + medios de pago -->
+    <section class="container section">
+      <div class="info-row">
+        <div>
+          <h4 style="font-family:Orbitron;margin:0 0 6px">Mapa y eventos</h4>
+          <div style="border:1px solid var(--muted);border-radius:12px;overflow:hidden">
+            <iframe
+              class="map-mini"
+              title="Mapa LevelUp"
+              src="https://www.google.com/maps?q=Pedro%20Aguirre%20Cerda%205254%20Huechuraba&output=embed"
+              width="100%"
+              height="220"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<!-- PANEL LATERAL DEL CARRITO (oculto por defecto con aria-hidden) -->
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <header class="container"><strong>Tu carrito</strong></header>
+
+    <!-- Aquí el JS inyecta la lista de ítems del carrito -->
+    <div class="cart-items" id="cartItems"></div>
+      <!-- Footer del carrito: total + botón de pago -->
+    <div class="cart-footer">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div>
+          <small>Total</small>
+          <div id="cartTotal" style="font-size:20px;font-weight:800;color:var(--accent-2)">$0</div>
+        </div>
+        <button class="btn primary" id="checkout">Pagar</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="cart-dock">
+    <button class="btn primary cart-button" id="dockCart">
+      Carrito <span class="badge" id="dockCount">0</span>
+    </button>
+  </div>
+
+  <div class="modal" id="loginModal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <h3 style="margin-top:0">Crear cuenta</h3>
+      <p class="desc">Solo para mayores de 18 años. Correos @duoc.cl obtienen <b>20% de por vida</b>.</p>
+      <form id="loginForm" class="grid-2">
+        <input id="name" required placeholder="Nombre"/>
+        <input required placeholder="Apellido"/>
+        <input id="email" type="email" required placeholder="Email"/>
+        <input id="age" type="number" min="18" required placeholder="Edad (18+)"/>
+        <input placeholder="Código de referido (opcional)"/>
+        <button class="btn primary" style="grid-column:1/-1">Registrarme</button>
+      </form>
+      <div id="duocMsg" class="desc" style="margin-top:8px;color:var(--accent-2);"></div>
+      <div style="text-align:right;margin-top:10px">
+        <button class="btn" id="closeLogin">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer__container">
+      <div class="lp-footer__col lp-footer__brand">
+        <h3 class="lp-footer__title">LevelUp <span>Gamer</span></h3>
+        <div class="lp-footer__social">
+          <!-- iconos redes sociales -->
+        </div>
+      </div>
+        <!-- Columna horarios + contacto -->
+      <div class="lp-footer__col">
+        <h4 class="lp-footer__heading">Horario de atención tienda web</h4>
+        <ul class="lp-footer__list">
+          <li>Lunes a Viernes</li>
+          <li>De 08:00 AM a 17:30</li>
+          <li>Email: <a href="mailto:soporte@levelup.cl">soporte@levelup.cl</a></li>
+        </ul>
+        <h4 class="lp-footer__heading">Contacto</h4>
+        <ul class="lp-footer__list">
+          <li>Escríbenos por redes sociales o al correo.</li>
+          <li>Mayoristas: <a href="mailto:mayoristas@levelup.cl">mayoristas@levelup.cl</a></li>
+        </ul>
+      </div>
+      <div class="lp-footer__col">
+        <h4 class="lp-footer__heading">Corporativo</h4>
+        <ul class="lp-footer__links">
+          <li><a href="#">Nuestras Tiendas</a></li>
+          <li><a href="#">Derechos del consumidor</a></li>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+          <li><a href="#">¿Quieres trabajar en LevelUp?</a></li>
+          <li><a href="#">Garantías</a></li>
+          <li><a href="#">Cambios y Devoluciones</a></li>
+          <li><a href="#">Política de cookies</a></li>
+          <li><a href="#">Acerca de Nosotros</a></li>
+        </ul>
+      </div>
+      <!-- Columna mi cuenta + medios de pago -->
+      <div class="lp-footer__col">
+        <h4 class="lp-footer__heading">Mi cuenta</h4>
+        <ul class="lp-footer__links">
+          <li><a href="#">Historial de pedidos</a></li>
+          <li><a href="#">Favoritos</a></li>
+          <li><a href="#">Mi cuenta</a></li>
+          <li><a href="#">Mis direcciones</a></li>
+        </ul>
+        <img src="img/pagos_tarjetas.png" alt="Tarjetas de crédito y débito aceptadas" class="lp-footer__payments">
+      </div>
+    </div>
+    <div class="lp-footer__copy">
+      © <span id="year"></span> LevelUp Gamer · Todos los derechos reservados.
+    </div>
+  </footer>
+  <!-- Script pequeño para actualizar el año automáticamente -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
